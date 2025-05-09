@@ -63,7 +63,13 @@ class node{
         }
     }
 };
- 
+int fun_word(string s,node *x){
+    for(int i=0;i<s.size();i++){
+        if(x->child[s[i]-'a']==NULL) return 0;
+        x=x->child[s[i]-'a'];
+    }
+    return x->f;
+}
 int main()
 { 
     ios::sync_with_stdio(0);
@@ -80,7 +86,7 @@ int main()
         node *root=new node();        
         for(i=0;i<n;i++){
             cin>>s[i];            
-            node *t=root;
+            node *t=root;            
             for(j=0;j<s[i].size();j++){
                 if(t->child[s[i][j]-'a']==NULL){
                     node *hello=new node();              
@@ -94,17 +100,10 @@ int main()
         for(i=0;i<x;i++){
             string s; cin>>s;
             node *t=root;
-            int f=1;
-            for(j=0;j<s.size();j++){
-                if(t->child[s[j]-'a']==NULL){
-                    t=NULL;break;
-                }
-                t=t->child[s[j]-'a'];
-            }
-            if(t==NULL or t->f==0) f=0;
+            int f= fun_word(s,root);            
             cout << s sp;
             if(f){
-                cout << "is found " << t->f << " times" nl;
+                cout << "is found " << f << " times" nl;
             }else{  
                 cout << " is not found" nl;
             }
